@@ -1,23 +1,22 @@
 from typing import List
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        sort_coins=sorted(coins, reverse=True)
-        count=0
-        left=amount
-        if amount==0:
-            return 0
-        while left>0:
-            for i in sort_coins:
-                if left<i:
-                    continue
-                else:
-                    count+=left//i
-                    left=left%i
-            if left==0:
-                return count
-            else:
-                return -1
+        dp = [-1] * (amount + 1)
+        dp[0] = 0
+        for i in range(1, amount + 1):
+            least_coin = i
+            cur_coin = coins[0]
+
+            for coin in coins:
+                if i - coin >= 0 and dp[i - coin] != -1:
+                    if dp[i - coin] <= least_coin:
+                        cur_coin = coin
+                        least_coin = dp[i - coin]
+                    # least_coin = min(least_coin,dp[i-coin])
+            if i - cur_coin >= 0 and dp[i - cur_coin] != -1:
+                dp[i] = least_coin + 1
+        return dp[-1]
 
 
 New = Solution()
-New.coinChange([186,419,83,408],6249)
+New.coinChange([2],3)

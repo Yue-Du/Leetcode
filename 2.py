@@ -3,6 +3,7 @@ class ListNode:
         self.val = x
         self.next = None
 
+set()
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         length1,length2 = 0,0
